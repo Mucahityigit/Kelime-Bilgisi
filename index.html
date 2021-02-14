@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #kapsama{
+            display: block;
+            width: 700px;
+            height: 80px;
+            background-color: burlywood;
+            padding:10px 30px ;
+            margin: 0 auto;
+            border: 1px solid black;
+        }
+        #kelime{
+            display: inline-block;
+            width: 200px;
+            height: 30px;
+            padding: 0px 15px;
+            line-height: 30px;
+            border: 1px solid black;
+        }
+        #cevap{
+            display: inline-block;
+            width: 200px;
+            height: 30px;
+            padding: 0px 15px;
+            border: 1px solid black;
+            outline: none;
+        }
+        #btn{
+            display: inline-block;
+            padding: 10px 30px;
+            background-color: chocolate;
+            color: white;
+            cursor: pointer;
+            margin-left: 80px;
+            border-radius: 30px;
+            transition: .5s;
+        }
+        #btn:hover{
+            background-color: coral;
+        }
+        #durum{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-bottom: -6px;
+            margin-left: 7px;
+            transition: all .2s;
+        }
+        .dogru{
+            background:#4dcc7d;
+            box-shadow: 0 0 10px #31b43a;
+        }
+        .yanlis{
+            background:#fc121b;
+            box-shadow: 0 0 10px #d01115;
+        }
+
+        #tablo,td,th{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        #tablo{
+            width: 760px;
+            height:auto;
+            background-color: burlywood;
+            margin: 0 auto;
+            margin-top: 30px;
+            
+        }
+        th,td{
+            width: 50%;
+            padding:10px;
+        }
+        #sonuc{
+            width: 100%;
+            height: 30px;
+            background-color:rgb(148, 114, 69);
+            color: white;
+            margin-top: 10px;
+            line-height: 30px;
+            padding: 0px 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="kapsama">
+            <div id="kelime"></div>
+            <input id="cevap" type="text">
+            <span id="durum"></span>
+            <span id="btn">Gönder</span>
+            <div id="sonuc"></div>
+    </div>
+    <table id="tablo">
+        <tr>
+            <th>İngilizce</th>
+            <th>Türkçe</th>
+        </tr>
+    </table>
+    <script>
+        var kelimeler = ['Cry','Take','Understan','Tell','Call','Depart','Leave','Look','Begin, start','Wait','Inform','Know','Ride','Find','Meet','Study','Work','Ring','Solve','Stare','Change','Listen','Stand','Fall','Think','Hear','Add','Pass','Cross','Come','Bring','Go','Send','See','Remember','Prepare','Drink','Sign','Build','Cancel','Want','Watch','Stay','join','Lose','Win','Break','Speak ','Put ','Use ','Focus ','Pay ','Read ','Be ','Sit ','Share ','Have ','Buy ','Sell ','Smoke ','Order ','Ask ','Say ','Drive ','Taste ','Clean ','Deliver ','Fly ','Hope ','Forget ','Sleep ','Arrive ','Give ','Do ','Make ','Help ','Write ','Eat ','Catch '];  
+        var cevaplar = ['ağlamak','almak','anlamak','anlatmak','aramak','hareket etmek','ayrılmak','bakmak','başlamak','beklemek','bilgilendirmek','bilmek','binmek','bulmak','buluşmak','çalışmak','çalışmak','çalmak','çözmek','dalmak','değiştirmek','dinlemek','durmak','düşmek','düşünmek','duymak','eklemek','geçmek','geçmek','gelmek','getirmek','gitmek','göndermek','görmek','hatırlamak','hazırlamak','içmek','imzalamak','inşa etmek','iptal etmek','istemek','izlemek','kalmak','katılmak','kaybetmek','kazanmak','kırmak','konuşmak','koymak','kullanmak','odaklanmak','ödemek','okumak','olmak','oturmak','paylaşmak','sahip olmak','satın almak','satmak','sigara içmek','sipariş vermek','sormak','söylemek','sürmek','tatmak','temizlemek','teslim etmek','uçmak','ummak','unutmak','uyumak','varmak','vermek','yapmak','yapmak','yardım etmek','yazmak','yemek','yetişmek'];
+        var cevap = document.getElementById('cevap');
+        var kelime = document.getElementById('kelime');
+        var btn = document.getElementById('btn');
+        var durum = document.getElementById('durum');
+        var tablo = document.getElementById('tablo');
+        var sonuc = document.getElementById('sonuc');
+        var sayi = [];
+        var sira = 0;
+        var toplam = cevaplar.length - 1;
+        
+        do{ 
+            var rndNum = (Math.floor(Math.random()*toplam));
+            if(!sayi.includes(rndNum)) 
+            {
+                sayi.unshift(rndNum);
+            }
+        } while(sayi.length<toplam);
+        
+       
+        kelime.innerHTML = kelimeler[sayi[sira]];
+      btn.onclick = function(){
+          if(cevap.value == cevaplar[sayi[sira]]){
+            durum.classList.add('dogru');
+            durum.classList.remove('yanlis');
+                    var tr = document.createElement('tr');
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');      
+                    var kelimelersayi=kelimeler[sayi[sira]];
+                    var cevaplarsayi=cevaplar[sayi[sira]];
+                    var td1icerik = document.createTextNode(kelimelersayi);
+                    var td2icerik = document.createTextNode(cevaplarsayi);
+                    td1.appendChild(td1icerik);
+                    td2.appendChild(td2icerik);
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tablo.appendChild(tr);
+            sira++;
+            sonuc.innerHTML = '';
+            cevap.value = '';
+          }else if(cevap.value != cevaplar[sayi[sira]]){
+            durum.classList.add('yanlis');
+            durum.classList.remove('dogru');
+            sonuc.innerHTML = 'Doğru Cevap : ' + cevaplar[sayi[sira]];
+            cevap.value = '';
+          }
+        
+          if(sira>=toplam){
+              sira = 0;
+          }
+          kelime.innerHTML = kelimeler[sayi[sira]];     
+          console.log(sayi[sira]);  
+      }
+            cevap.addEventListener('keyup', function (event) {
+
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                btn.click();
+            }
+
+            });
+     
+
+    </script>
+</body>
+</html>
